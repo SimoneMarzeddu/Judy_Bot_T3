@@ -6,6 +6,7 @@ from queue import PriorityQueue
 import time
 import sys
 import numpy
+from IPython.display import clear_output
 
 numpy.set_printoptions(threshold=sys.maxsize)
 
@@ -789,11 +790,13 @@ class GameWhisperer:
         info = None
 
         if not self.fast_mode:
-            print("pray_timeout: ", abs(self.last_pray - self.bl_stats[20]))
+            pass
+            #print("pray_timeout: ", abs(self.last_pray - self.bl_stats[20]))
         if self.bl_stats[20] % 100 == 0:
-            print("actual score: ", self.bl_stats[9], " turn: ",
-                  self.bl_stats[20], " time: ", time.localtime()[3], ":", time.localtime()[4], "  -")
-            go_back(2)
+            pass
+            #print("actual score: ", self.bl_stats[9], " turn: ",
+                  #self.bl_stats[20], " time: ", time.localtime()[3], ":", time.localtime()[4], "  -")
+            #go_back(2)
 
         if abs(self.bl_stats[20] - self.pet_alive_turn) > 10 and self.bl_stats[20] > 2000:
             self.pet_alive = False
@@ -882,11 +885,13 @@ class GameWhisperer:
 
         if self.bl_stats[11] != 0 and (self.bl_stats[10] / self.bl_stats[11]) <= 0.5 and not self.safe_play:
             if not self.fast_mode:
-                print("SAFE_MODE : enabled")
+                pass
+                #print("SAFE_MODE : enabled")
             self.safe_play = True
         elif self.bl_stats[11] != 0 and (self.bl_stats[10] / self.bl_stats[11]) > 0.85 and self.safe_play:
             if not self.fast_mode:
-                print("SAFE_MODE : disabled")
+                pass
+                #print("SAFE_MODE : disabled")
             self.safe_play = False
         self.act_num += 1
         if self.update_agent():
@@ -896,9 +901,11 @@ class GameWhisperer:
                 for next_tile in self.neighbors_8_dir(self.a_yx[0], self.a_yx[1]):
                     self.search_map[next_tile[0]][next_tile[1]] = 1
         if not self.fast_mode:  # and x != 10:
-            # go_back(27)
+            go_back(200)
+            clear_output(wait=True)
             env.render()
-            # time.sleep(0.05)
+            #print(" ", flush=True)
+            time.sleep(0.1)
 
         self.new_turn = self.bl_stats[20]
         self.depth_turns.setdefault(str(self.bl_stats[12]), 0)
@@ -1440,7 +1447,8 @@ def main_logic(dungeon_walker, game, tasks_prio, task_map, attempts):
         while not done:
             task, path, arg1 = planning(game, tasks_prio.copy(), task_map)
             if not game.get_fast_mode():
-                print("TASK: ", task, " PATH: ", path)
+                pass
+                print("\n\nTASK: ", task, " PATH: ", path)
 
             if not game.update_agent() or game.get_stuck_counter() > 200:
                 break

@@ -6,32 +6,34 @@ from general_modules import Pray, Elbereth, Run, Break, Fight, Eat, StairsDescen
 from core import GameWhisperer, DungeonWalker, main_logic
 
 
-def start_bot():
-    with open('config.json', 'r') as f:
+def start_bot(config_file_name:str):
+    with open(config_file_name, 'r') as f:
         config = json.load(f)
 
-    print("\nJudy is looking for the Amulet of Yendor on the map ...\n")
-    print("\nVersion: 1.1.9 Stairs\n")
+    #print("\nJudy is looking for the Amulet of Yendor on the map ...\n")
+    #print("\nVersion: 1.1.9 - AIF Exam project\n")
 
     exec_mode = config['fast_mode']
     mode = False
     if exec_mode == "on":
         mode = True
-        print("\nFast_Mode : ON")
+        #print("\nFast_Mode : ON")
     elif exec_mode == "off":
-        print("\nFast_Mode : OFF")
+        pass
+        #print("\nFast_Mode : OFF")
     else:
-        print("\nFast_Mode can only be \"on\" or \"off\" -> value set to default : OFF")
-    time.sleep(0.5)
+        pass
+        #print("\nFast_Mode can only be \"on\" or \"off\" -> value set to default : OFF")
+    #time.sleep(0.5)
 
     games_number = 100
     try:
         games_number = int(config['attempts'])
-        print("Attempts : ", games_number)
+        #print("Attempts : ", games_number)
     except:
-        print("Attempts must be an int value -> value set to default : ", games_number)
+        #print("Attempts must be an int value -> value set to default : ", games_number)
         games_number = 100
-    time.sleep(0.5)
+    #time.sleep(0.5)
 
     game_interface = GameWhisperer(mode)
     walk_logic = DungeonWalker(game_interface)
@@ -68,16 +70,15 @@ def start_bot():
             task_modules_map[task] = Unseen(walk_logic, game_interface, task)
         elif task == "search_hidden_corridor":
             task_modules_map[task] = HiddenCorridor(walk_logic, game_interface, task)
-        print(task)
-        time.sleep(0.4)
+        #print(task)
+        #time.sleep(0.4)
 
-    print("\nJudy is ready for YASD ...")
-    print("\n\n")
-    time.sleep(1)
+    #print("\nJudy is ready for YASD ...")
+    #print("\n\n")
+    #time.sleep(1)
 
     return walk_logic, game_interface, task_prio, task_modules_map, games_number
 
-
-dungeon_walker, game, logic, task_map, attempts = start_bot()
-
-main_logic(dungeon_walker, game, logic, task_map, attempts)
+if __name__=="__main__":
+    dungeon_walker, game, logic, task_map, attempts = start_bot("config.json")
+    main_logic(dungeon_walker, game, logic, task_map, attempts)

@@ -221,7 +221,8 @@ class Elbereth(Task):
                 and not done and stats[21] < 4:  # and not (w_count > 1 and risk >= 2):
             rew, done, info = self.game.do_it(75, None)  # wait - with search
             if not self.game.get_fast_mode():
-                print("\nElbereth WAIT ---\n")
+                pass
+                #print("\nElbereth WAIT ---\n")
             # risk = self.game.get_risk(agent[0], agent[1])
             # w_count += 1
             stats = self.game.get_bl_stats()
@@ -495,7 +496,8 @@ class ExploreClosest(Task):
                 if self.eject_button():
                     return False, rew, done
                 if not self.game.get_fast_mode():
-                    print("search in suspect corridor end... try:", i)
+                    pass
+                    #print("search in suspect corridor end... try:", i)
                 rew, done, info = self.game.do_it(75, None)  # search
                 i += 1
                 # prova a spostarsi in una casella '#' appena scoperta
@@ -570,7 +572,8 @@ class ExploreClosest(Task):
                     break
 
                 if not self.game.get_fast_mode():
-                    print("searching on the void... try: ", j)
+                    pass
+                    #print("searching on the void... try: ", j)
                 rew, done, info = self.game.do_it(75, None)  # search
                 agent = self.game.get_agent_position()
                 stats = self.game.get_bl_stats()
@@ -656,7 +659,8 @@ class Fight(Task):
             char = self.game.get_char(y, x)
             color = self.game.get_color(y, x)
             if not self.game.get_fast_mode():
-                print("monster info -> char: ", char, " - color: ", color)
+                pass
+                #print("monster info -> char: ", char, " - color: ", color)
             if self.game.get_parsed_message().__contains__("statue"):
                 self.game.append_monster_exception((y, x))
             lms = self.game.get_last_monster_searched()
