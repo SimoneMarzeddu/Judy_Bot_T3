@@ -1440,6 +1440,8 @@ def main_logic(dungeon_walker, game, tasks_prio, task_map, attempts):
                 face = "(ง'-')ง"
             if mediana >= 756:
                 face = "ᕙ(`▿´)ᕗ"
+            go_back(200)
+            clear_output(wait=True)
             print("// Mean : ", game.get_total_score() / true_divisor, "// Median: ", mediana, " // Games: ",
                   len(scores), "      ", face, "               ")
             print(scores)
